@@ -9,16 +9,7 @@
 import UIKit
 
 enum Colours: String {
-    case Blue = "0000FF"
-    case Cyan = "00FFFF"
-    case Gold = "FFD700"
-    case Green = "008000"
-    case Khaki = "F0E68C"
-    case Orange = "FFA500"
-    case Red  = "FF0000"
-    case Skyblue = "87CEEB"
-    case Tan = "D2B48C"
-    case Violet = "EE82EE"
+    case Blue = "0000FF" ,Cyan = "00FFFF", Gold = "FFD700", Green = "008000", Khaki = "F0E68C",Orange = "FFA500",Red  = "FF0000", Skyblue = "87CEEB", Tan = "D2B48C", Violet = "EE82EE"
     
     static let allValues = [Blue,Cyan,Gold,Green,Khaki,Orange,Red,Skyblue,Tan,Violet]
     
@@ -59,11 +50,11 @@ enum Colours: String {
         return colours
     }
     
-    static func getEnumFromSelectedValue(selectedRow: Int) -> Colours{
+    static func getEnumFromSelectedValue(index: Int) -> Colours{
         
         var selected:Colours?
         
-        switch (selectedRow) {
+        switch (index) {
         case Colours.Blue.hashValue:
             selected = .Blue
         case Colours.Cyan.hashValue:

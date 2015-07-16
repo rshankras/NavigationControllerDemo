@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet var tableView:UITableView!
     
@@ -18,13 +18,12 @@ class ViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         data = Colours.getColours()
+        addToolBarItems()
         
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(true)
-        
-        addToolBarItems()
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
         
         navigationItem.title = "Colours"
     }
@@ -33,12 +32,13 @@ class ViewController: UIViewController, UITableViewDataSource {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     //MARK:- UITableViewDataSource methods
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
     }
+    
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("CellIdentifier", forIndexPath: indexPath) as! UITableViewCell
@@ -46,10 +46,12 @@ class ViewController: UIViewController, UITableViewDataSource {
         return cell
     }
     
+    
     //MARK:- PrepareForSegue
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "Colour" {
+
             let colourViewController:ColourViewController = segue.destinationViewController as! ColourViewController
             let selectedRow = tableView.indexPathForSelectedRow()?.row
             colourViewController.colour = selectedRow
