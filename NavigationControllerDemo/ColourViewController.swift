@@ -39,9 +39,9 @@ class ColourViewController: UIViewController {
     func addToolBarItems() {
         
         let nonSegue = UIBarButtonItem(title: "Non Segue", style: .Plain, target: self, action: "nonSegueCall")
-        var items = [nonSegue]
+        let items = [nonSegue]
         
-        self.setToolbarItems(items as [AnyObject], animated: true)
+        self.setToolbarItems(items as [UIBarButtonItem], animated: true)
     }
     
     func nonSegueCall() {

@@ -85,7 +85,7 @@ enum Colours: String {
     // Credit below function to http://www.anthonydamota.me/blog/en/use-a-hex-color-code-with-uicolor-on-swift/
     
     static func getUIColorFromHex(colorCode: String, alpha: Float = 1.0) -> UIColor{
-        var scanner = NSScanner(string:colorCode)
+        let scanner = NSScanner(string:colorCode)
         var color:UInt32 = 0;
         scanner.scanHexInt(&color)
         

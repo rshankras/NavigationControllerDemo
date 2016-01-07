@@ -41,7 +41,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("CellIdentifier", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("CellIdentifier", forIndexPath: indexPath) 
         cell.textLabel?.text = data[indexPath.row]
         return cell
     }
@@ -53,7 +53,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if segue.identifier == "Colour" {
 
             let colourViewController:ColourViewController = segue.destinationViewController as! ColourViewController
-            let selectedRow = tableView.indexPathForSelectedRow()?.row
+            let selectedRow = tableView.indexPathForSelectedRow?.row
             colourViewController.colour = selectedRow
         }
     }
@@ -66,9 +66,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let nonSegue = UIBarButtonItem(title: "Non Segue", style: .Plain, target: self, action: "nonSegueCall")
         let seperator = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: self, action: nil)
         
-        var items = [segue,seperator,nonSegue]
+        let items = [segue,seperator,nonSegue]
         
-        self.setToolbarItems(items as [AnyObject], animated: true)
+        self.setToolbarItems(items as [UIBarButtonItem], animated: true)
         navigationController?.setToolbarHidden(false, animated: true)
     }
     
