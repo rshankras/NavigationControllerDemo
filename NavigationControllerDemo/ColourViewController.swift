@@ -10,16 +10,16 @@ import UIKit
 
 class ColourViewController: UIViewController {
     
-    var colour: Int?
+    var colourIndex: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let colour = colour {
-            let hex:Colours = Colours.getEnumFromSelectedValue(colour)
-            view.backgroundColor = Colours.getUIColorFromHex(hex.rawValue, alpha: 1.0)
+        if let colourIndex = colourIndex {
+            let colour:Colours = Colours.getEnumFromSelectedValue(colourIndex)
+            view.backgroundColor = Colours.getUIColorFromHex(colour.rawValue, alpha: 1.0)
             
-            navigationItem.title = hex.getDisplayName()
+            navigationItem.title = colour.getDisplayName()
         }
     }
     

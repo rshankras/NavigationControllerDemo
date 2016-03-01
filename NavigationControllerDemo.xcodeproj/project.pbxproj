@@ -84,11 +84,8 @@
 			isa = PBXGroup;
 			children = (
 				48DC57431B439A6100F36CD4 /* App */,
-				48DC573D1B42528700F36CD4 /* Colours.swift */,
 				48DC57441B439A6900F36CD4 /* Controllers */,
-				48DC57211B424F6600F36CD4 /* Main.storyboard */,
-				48DC57241B424F6600F36CD4 /* Images.xcassets */,
-				48DC57261B424F6600F36CD4 /* LaunchScreen.xib */,
+				48F0924E1C85BAE4003EB8FB /* Resources */,
 				48DC571B1B424F6600F36CD4 /* Supporting Files */,
 			);
 			path = NavigationControllerDemo;
@@ -123,6 +120,7 @@
 		48DC57431B439A6100F36CD4 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				48DC573D1B42528700F36CD4 /* Colours.swift */,
 				48DC571D1B424F6600F36CD4 /* AppDelegate.swift */,
 			);
 			name = App;
@@ -135,6 +133,16 @@
 				48DC571F1B424F6600F36CD4 /* ViewController.swift */,
 			);
 			name = Controllers;
+			sourceTree = "<group>";
+		};
+		48F0924E1C85BAE4003EB8FB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				48DC57211B424F6600F36CD4 /* Main.storyboard */,
+				48DC57241B424F6600F36CD4 /* Images.xcassets */,
+				48DC57261B424F6600F36CD4 /* LaunchScreen.xib */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

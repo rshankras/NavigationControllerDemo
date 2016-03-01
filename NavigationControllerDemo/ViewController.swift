@@ -51,10 +51,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "Colour" {
+        
 
-            let colourViewController:ColourViewController = segue.destinationViewController as! ColourViewController
+            let colourViewController = segue.destinationViewController as! ColourViewController
             let selectedRow = tableView.indexPathForSelectedRow?.row
-            colourViewController.colour = selectedRow
+            colourViewController.colourIndex = selectedRow
         }
     }
     
@@ -82,6 +83,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func nonSegueCall() {
         let childViewController = storyboard?.instantiateViewControllerWithIdentifier("ColourViewController") as! ColourViewController
+        let index = tableView.indexPathForSelectedRow?.row
+        childViewController.colourIndex = index
         navigationController?.pushViewController(childViewController, animated: true)
     }
 }

@@ -44,7 +44,7 @@ enum Colours: String {
     static func getColours() -> [String] {
         var colours:[String] = []
         
-        for colour in Colours.allValues {
+        for colour in allValues {
             colours.append(colour.getDisplayName())
         }
         return colours
