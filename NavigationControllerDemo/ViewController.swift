@@ -9,20 +9,21 @@
 import UIKit
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+
     
     @IBOutlet var tableView:UITableView!
     
-    var data:[String] = [String]()
+    var data:[Colour] = [Colour]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        data = Colours.getColours()
+        data = Colour.allCases
         addToolBarItems()
         
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
         navigationItem.title = "Colours"
@@ -35,37 +36,37 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     //MARK:- UITableViewDataSource methods
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
     }
     
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("CellIdentifier", forIndexPath: indexPath) 
-        cell.textLabel?.text = data[indexPath.row]
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CellIdentifier", for: indexPath)
+        cell.textLabel?.text = data[indexPath.row].displayName
         return cell
     }
     
     
+    
     //MARK:- PrepareForSegue
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Colour" {
-        
-
-            let colourViewController = segue.destinationViewController as! ColourViewController
+            let colourViewController = segue.destination as! ColourViewController
             let selectedRow = tableView.indexPathForSelectedRow?.row
-            colourViewController.colourIndex = selectedRow
+            colourViewController.colourIndex = selectedRow ?? 0
         }
+
     }
-    
+
     //MARK:- Add toolbar items
     
     func addToolBarItems() {
         
-        let segue = UIBarButtonItem(title: "Segue", style: .Plain, target: self, action: "segueCall")
-        let nonSegue = UIBarButtonItem(title: "Non Segue", style: .Plain, target: self, action: "nonSegueCall")
-        let seperator = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: self, action: nil)
+        let segue = UIBarButtonItem(title: "Segue", style: .plain, target: self, action: Selector(("segueCall")))
+        let nonSegue = UIBarButtonItem(title: "Non Segue", style: .plain, target: self, action: Selector(("nonSegueCall")))
+        let seperator = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: self, action: nil)
         
         let items = [segue,seperator,nonSegue]
         
@@ -75,15 +76,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     //MARK:- Segue call
     
-    func segueCall(){
-        performSegueWithIdentifier("Colour", sender: self)
+    @objc func segueCall(){
+        performSegue(withIdentifier: "Colour", sender: self)
     }
     
     //MARK:- Non Segue call
     
-    func nonSegueCall() {
-        let childViewController = storyboard?.instantiateViewControllerWithIdentifier("ColourViewController") as! ColourViewController
-        let index = tableView.indexPathForSelectedRow?.row
+    @objc func nonSegueCall() {
+        let childViewController = storyboard?.instantiateViewController(withIdentifier: "ColourViewController") as! ColourViewController
+        let index = tableView.indexPathForSelectedRow?.row ?? 0
         childViewController.colourIndex = index
         navigationController?.pushViewController(childViewController, animated: true)
     }

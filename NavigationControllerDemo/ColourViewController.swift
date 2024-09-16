@@ -16,14 +16,16 @@ class ColourViewController: UIViewController {
         super.viewDidLoad()
         
         if let colourIndex = colourIndex {
-            let colour:Colours = Colours.getEnumFromSelectedValue(colourIndex)
-            view.backgroundColor = Colours.getUIColorFromHex(colour.rawValue, alpha: 1.0)
-            
-            navigationItem.title = colour.getDisplayName()
+            if let colour = Colour.colour(at: colourIndex) {
+                view.backgroundColor = colour.uiColor()
+                navigationItem.title = colour.displayName
+            } else {
+                print("Invalid colour index")
+            }
         }
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
         addToolBarItems()
@@ -38,13 +40,13 @@ class ColourViewController: UIViewController {
     
     func addToolBarItems() {
         
-        let nonSegue = UIBarButtonItem(title: "Non Segue", style: .Plain, target: self, action: "nonSegueCall")
+        let nonSegue = UIBarButtonItem(title: "Non Segue", style: .plain, target: self, action: Selector(("nonSegueCall")))
         let items = [nonSegue]
         
         self.setToolbarItems(items as [UIBarButtonItem], animated: true)
     }
     
     func nonSegueCall() {
-        navigationController?.popViewControllerAnimated(true)
+        navigationController?.popViewController(animated: true)
     }
 }

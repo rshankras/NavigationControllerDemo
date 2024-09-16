@@ -8,92 +8,50 @@
 
 import UIKit
 
-enum Colours: String {
-    case Blue = "0000FF" ,Cyan = "00FFFF", Gold = "FFD700", Green = "008000", Khaki = "F0E68C",Orange = "FFA500",Red  = "FF0000", Skyblue = "87CEEB", Tan = "D2B48C", Violet = "EE82EE"
-    
-    static let allValues = [Blue,Cyan,Gold,Green,Khaki,Orange,Red,Skyblue,Tan,Violet]
-    
-    func getDisplayName() -> String {
-        var displayName = ""
-        
-        switch (self) {
-        case .Blue:
-            displayName = "Blue"
-        case .Cyan:
-            displayName = "Cyan"
-        case .Gold:
-            displayName = "Gold"
-        case .Green:
-            displayName = "Green"
-        case .Khaki:
-            displayName = "Khaki"
-        case .Orange:
-            displayName = "Orange"
-        case .Red:
-            displayName = "Red"
-        case .Skyblue:
-            displayName = "SkyBlue"
-        case .Tan:
-            displayName = "Tan"
-        case .Violet:
-            displayName = "Violet"
-        }
-        return displayName
+enum Colour: String, CaseIterable {
+    case blue = "0000FF"
+    case cyan = "00FFFF"
+    case gold = "FFD700"
+    case green = "008000"
+    case khaki = "F0E68C"
+    case orange = "FFA500"
+    case red = "FF0000"
+    case skyBlue = "87CEEB"
+    case tan = "D2B48C"
+    case violet = "EE82EE"
+
+    var displayName: String {
+         switch self {
+         case .skyBlue: return "Sky Blue"
+         default: return String(describing: self).capitalized
+         }
+     }
+
+    static var displayNames: [String] {
+        allCases.map { $0.displayName }
     }
-    
-    static func getColours() -> [String] {
-        var colours:[String] = []
-        
-        for colour in allValues {
-            colours.append(colour.getDisplayName())
-        }
-        return colours
+
+    static func colour(at index: Int) -> Colour? {
+        guard index >= 0, index < allCases.count else { return nil }
+        return Array(allCases)[index]
     }
-    
-    static func getEnumFromSelectedValue(index: Int) -> Colours{
-        
-        var selected:Colours?
-        
-        switch (index) {
-        case Colours.Blue.hashValue:
-            selected = .Blue
-        case Colours.Cyan.hashValue:
-            selected = .Cyan
-        case Colours.Gold.hashValue:
-             selected = .Gold
-        case Colours.Green.hashValue:
-               selected = .Green
-        case Colours.Khaki.hashValue:
-           selected = .Khaki
-        case Colours.Orange.hashValue:
-            selected = .Orange
-        case Colours.Red.hashValue:
-           selected = .Red
-        case Colours.Skyblue.hashValue:
-            selected = .Skyblue
-        case Colours.Tan.hashValue:
-            selected = .Tan
-        case Colours.Violet.hashValue:
-            selected = .Violet
-        default:
-            break
-        }
-        
-        return selected!
+
+    func uiColor(alpha: CGFloat = 1.0) -> UIColor {
+        UIColor(hex: rawValue, alpha: alpha)
     }
-    
-    // Credit below function to http://www.anthonydamota.me/blog/en/use-a-hex-color-code-with-uicolor-on-swift/
-    
-    static func getUIColorFromHex(colorCode: String, alpha: Float = 1.0) -> UIColor{
-        let scanner = NSScanner(string:colorCode)
-        var color:UInt32 = 0;
-        scanner.scanHexInt(&color)
-        
+}
+
+extension UIColor {
+    convenience init(hex: String, alpha: CGFloat = 1.0) {
+        let scanner = Scanner(string: hex)
+        var color: UInt64 = 0
+        scanner.scanHexInt64(&color)
+
         let mask = 0x000000FF
-        let r = CGFloat(Float(Int(color >> 16) & mask)/255.0)
-        let g = CGFloat(Float(Int(color >> 8) & mask)/255.0)
-        let b = CGFloat(Float(Int(color) & mask)/255.0)
-        
-        return UIColor(red: r, green: g, blue: b, alpha: CGFloat(alpha))
+        let r = CGFloat(Int(color >> 16) & mask) / 255.0
+        let g = CGFloat(Int(color >> 8) & mask) / 255.0
+        let b = CGFloat(Int(color) & mask) / 255.0
+
+        self.init(red: r, green: g, blue: b, alpha: alpha)
     }
 }
