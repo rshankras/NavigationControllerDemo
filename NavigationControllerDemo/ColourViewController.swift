@@ -16,8 +16,8 @@ class ColourViewController: UIViewController {
         super.viewDidLoad()
         
         if let colourIndex = colourIndex {
-            if let colour = Colour.colour(at: colourIndex) {
-                view.backgroundColor = colour.uiColor()
+            if let colour = CustomColour.colour(at: colourIndex) {
+                view.backgroundColor = colour.uiColor
                 navigationItem.title = colour.displayName
             } else {
                 print("Invalid colour index")

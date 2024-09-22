@@ -13,12 +13,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBOutlet var tableView:UITableView!
     
-    var data:[Colour] = [Colour]()
+    var data:[CustomColour] = [CustomColour]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        data = Colour.allCases
+        data = CustomColour.allCases
         addToolBarItems()
         
     }
